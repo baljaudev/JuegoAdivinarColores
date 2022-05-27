@@ -1,3 +1,4 @@
+//Declaración de variables
 let numCuadrados = 9;
 let colores = generarColoresAlea(numCuadrados);
 let cuadrados = document.querySelectorAll(".square");
@@ -33,6 +34,7 @@ botonFacil.addEventListener("click", function(){
 });
 
 botonDificil.addEventListener("click", function(){
+	//Resaltar el botón, será el modo de juego preseleccionado, según puesto en el HTML
 	botonFacil.classList.remove("seleccionado");
 	botonDificil.classList.add("seleccionado");
 	numCuadrados = 9;
