@@ -1,4 +1,3 @@
-//Declaración de variables
 let numCuadrados = 9;
 let colores = generarColoresAlea(numCuadrados);
 let cuadrados = document.querySelectorAll(".square");
@@ -12,18 +11,18 @@ let botonDificil = document.querySelector("#botonDificil");
 
 
 botonFacil.addEventListener("click", function(){
-	//Resaltar el botón para indicar que está seleccionado
+	//highlight button to show seleccionado
 	botonDificil.classList.remove("seleccionado");
 	botonFacil.classList.add("seleccionado");
-	//Cambiar el número de cuadrados; 6 para el nivel fácil
+	//set number of cuadrados to 6
 	numCuadrados = 6;
-	//Generar nuevos colores RGB
+	//change colores to 6
 	colores = generarColoresAlea(numCuadrados);
-	//Elegir un nuevo color aleatorio RGB
+	//reset winning color
 	colorElegido = generarAlea();
-	//Mostrar el nuevo color en el HTML
+	//change display to show new picked color
 	colorMostrado.textContent = colorElegido;
-	//Iterar sobre los 6 cuadrados y cambiar el color a cada uno de ellos
+	//loop through 6 cuadrados and reset colores while displaying none for cuadrados without new reset colores
 	for(let i = 0; i < cuadrados.length; i++){
 		if(colores[i]){
 			cuadrados[i].style.background = colores[i];
@@ -31,10 +30,10 @@ botonFacil.addEventListener("click", function(){
 			cuadrados[i].style.display = "none";
 		}
 	}
+	
 });
 
 botonDificil.addEventListener("click", function(){
-	//Resaltar el botón, será el modo de juego preseleccionado, según puesto en el HTML
 	botonFacil.classList.remove("seleccionado");
 	botonDificil.classList.add("seleccionado");
 	numCuadrados = 9;
@@ -45,82 +44,102 @@ botonDificil.addEventListener("click", function(){
 		cuadrados[i].style.backgroundColor = colores[i];
 		cuadrados[i].style.display = "block";
 	}
+	gameOverClear();
 });
 
 botonReset.addEventListener("click", function(){
-	colores = generarColoresAlea(numCuadrados);
+	//generate all new colores
+	colors = generarColoresAlea(numCuadrados);
+	//pick a new random color from listaay
 	colorElegido = generarAlea();
+	//change colorMostrado to match picked color
 	colorMostrado.textContent = colorElegido;
 	botonReset.textContent = "Nuevos colores";
 	mensajeMostrado.textContent = "";
+	//change colores of cuadrados
 	for(let i = 0; i < cuadrados.length; i++){
 		cuadrados[i].style.backgroundColor = colores[i];
 	}
-	//poner el color ganador a su color original
+	//set winning color highlight back to default
 	h1.style.background = "steelblue"; 
+	gameOverClear();
+	
 })
 
 colorMostrado.textContent = colorElegido;
 let intentos = 0;
 for(let i = 0; i < cuadrados.length; i++) {
-	//Rellena los cuadarados con colores aleatorios
+	//add initial colores to cuadrados
 	cuadrados[i].style.backgroundColor = colores[i];
-	//Añade un evento click a cada cuadrado
+	//letiable para los intentos
+	//let intentos = 0;
+	//add click listeners to cuadrados
 	cuadrados[i].addEventListener("click", function(){
-		//Coge el color del cuadrado que se ha pulsado
+		//grab color of clicked square
 		let clickedColor = this.style.backgroundColor;
-		//Compara ese color con colorElegido
+		//compare color to colorElegido
 		console.log(clickedColor, colorElegido);
 		if(clickedColor === colorElegido){
 			mensajeMostrado.textContent = "¡Correcto!";
 			botonReset.textContent = "Jugar otra vez";
-			//Si es igual, cambia el color de todos los cuadrados a colorElegido
 			cambiarColores(clickedColor);
-			//Pone el color ganador en el h1
 			h1.style.background = clickedColor;
 		}	else {
-			//Si no es igual, cambia el color del cuadrado para que desaparezca
 			this.style.backgroundColor = "#232323";
 			mensajeMostrado.textContent = "Intentar de nuevo";
 			intentos++;
-			 //Si se han acumulado 3 intentos, cambia el color de todos los cuadrados
-			if(intentos == 3){
+			if(intentos == 3){ //si se han acumulado 3 intentos
 				mensajeMostrado.textContent = "¡Perdiste!";
-				cambiarColores("#232323");
-				//Reinicia el contador de intentos
-				intentos = 0;
+				cambiarColores("#232323"); //pone en negro todos los cuadrados
+				gameOver();
+				intentos = 0; //reiniciar intentos para próxima partida
 			}
-			}
+		}
 		});
 }
 
+function gameOver(){
+    let gameOver= document.getElementById("game-over");
+	gameOver.style.display= "block";
+}
+
+function gameOverClear(){
+    let gameOver= document.getElementById("game-over");
+	gameOver.style.display= "none";
+}
+
 function cambiarColores(color){
-	//Itera sobre los cuadrados y cambia el color al pasado por parámetro
+	//loop through all cuadrados
 	for(let i = 0; i < cuadrados.length; i++){
+		//change each color to match given color
 		cuadrados[i].style.background = color;
 	}	
 }
 
 function generarAlea(){
+	//pick a random number
 	let aleatorio = Math.floor(Math.random() * colores.length)
 	return colores[aleatorio];
 }
 
 function generarColoresAlea(genColor){
-	//Crea un array
+	//make an listaay
 	let lista = []
-	//Repite las veces necesarias 6 ó 9 veces
+	//repeat num times
 	for(let i = 0; i < genColor; i++){
-	//Añade un color aleatorio a la lista
+	// get aleatori color and push into listaay
 		lista.push(colorAlea())
 	}
+	//return that listaay
 	return lista;
 }
 
 function colorAlea(){
-	//Genera 3 números aleatorios entre 0 y 255
+	//pick a "red" from 0 - 255
 	let r = Math.floor(Math.random() * 256);
+	//pick a "green" from 0 - 255
 	let g = Math.floor(Math.random() * 256);
+	// pick a "blue" from 0 - 255
 	let b = Math.floor(Math.random() * 256);
 	return "rgb(" + r +", " + g +", " + b +")";
 }
