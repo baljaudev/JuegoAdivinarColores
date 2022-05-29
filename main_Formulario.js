@@ -86,7 +86,7 @@ inputs.forEach((input) => {
 });
 
 function upload(){
-	
+	let ventanaJuego = window.open("Juego.html", "Juego adivinar color");
 }
 
 formulario.addEventListener('submit', (e) => {
