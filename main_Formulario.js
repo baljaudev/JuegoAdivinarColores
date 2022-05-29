@@ -85,9 +85,6 @@ inputs.forEach((input) => {
 	input.addEventListener('blur', validarFormulario);
 });
 
-function upload(){
-	let ventanaJuego = window.open("Juego.html", '_blank');
-}
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
@@ -104,7 +101,9 @@ formulario.addEventListener('submit', (e) => {
 		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
 			icono.classList.remove('formulario__grupo-correcto');
 		});
+		let ventanaJuego = window.open("Juego.html", '_blank');
 	} else {
 		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 	}
+	
 });
