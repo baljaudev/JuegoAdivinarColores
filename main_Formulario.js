@@ -1,5 +1,5 @@
 const formulario = document.getElementById('formulario');// De esta manera accedemos al id del formulario
-const inputs = document.querySelectorAll('#formulario input');// obtenemos un arreglo de los inputs y los  almacenamos 
+const inputs = document.querySelectorAll('#formulario input');// obtenemos un arreglo de los input y los  almacenamos 
 
 const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
@@ -17,7 +17,7 @@ const campos = {
 	correo: false,
 	telefono: false
 }
-// En este metodo vamos a validar cada input del formulario el cual se lo pasamos por parametro. 
+// En este metodo vamos a validar cada input del formulario el cual le pasamos por parametro los campos que debe validar. 
 const validarFormulario = (e) => {
 	switch (e.target.name) {
 		case "usuario":
@@ -28,7 +28,7 @@ const validarFormulario = (e) => {
 		break;
 		case "password":
 			validarCampo(expresiones.password, e.target, 'password');
-			validarPassword2(); // De esta manera nos aseguramos que pwd1 y pwd2 son iguales evaluandola con cada cambio que se ejecute. 
+			validarPassword2(); // De esta manera nos aseguramos que pwd1 y pwd2 son iguales, evaluando con cada cambio que se ejecute en el pwd1
 		break;
 		case "password2":
 			validarPassword2();
@@ -44,7 +44,7 @@ const validarFormulario = (e) => {
 
 const validarCampo = (expresion, input, campo) => {
 	if(expresion.test(input.value)){ // Si la expresión regular definida para el input es correcta entre en el if 
-		//Con Backtick nos permite pasar pasarle el valor del la variable campo 
+		//Con Backtick nos permite pasarle el valor de la variable campo 
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
